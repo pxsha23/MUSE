@@ -7,10 +7,11 @@ export const generateToken = (res, { id, role }) => {
     expiresIn: process.env.JWT_EXPIRES_IN || '30d',
   });
 
+  const isProd = process.env.NODE_ENV === 'production';
   res.cookie('token', token, {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: isProd ? 'none' : 'lax',
+    secure: isProd,
     maxAge: COOKIE_MAX_AGE_MS,
   });
 
@@ -18,9 +19,10 @@ export const generateToken = (res, { id, role }) => {
 };
 
 export const clearTokenCookie = (res) => {
+  const isProd = process.env.NODE_ENV === 'production';
   res.clearCookie('token', {
     httpOnly: true,
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: isProd ? 'none' : 'lax',
+    secure: isProd,
   });
 };
