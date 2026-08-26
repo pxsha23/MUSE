@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Bagel+Fat+One&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-bubble: "Bagel Fat One", "Fraunces", serif;
+  --font-body: "Poppins", "Segoe UI", sans-serif;
+
+  --color-blush-50: #fdf6f8;
+  --color-blush-100: #f7e6ec;
+  --color-blush-200: #edd2dd;
+  --color-blush-300: #ddb0c3;
+  --color-blush-400: #cf93ad;
+  --color-rose-400: #cd8ba5;
+  --color-rose-500: #c17b98;
+  --color-rose-600: #ac5c7c;
+  --color-rose-700: #8b4763;
+  --color-rose-800: #69364b;
+  --color-rose-900: #4a2638;
+  --color-ink-900: #17131a;
+  --color-cream-50: #ffffff;
+  --color-line-200: #e7e3e6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background: var(--color-cream-50);
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-bubble {
+  font-family: var(--font-bubble);
+}
+
+/* ---- MUSE glass-balloon hero text ---- */
+.muse-glass-wrap {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+.muse-glass-text {
+  font-family: var(--font-bubble);
+  font-weight: 400;
+  position: relative;
+  background: linear-gradient(165deg, #ffe3ef 0%, #ff9dc7 30%, #e8558f 60%, #a83262 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 2px 0 rgba(168, 50, 98, 0.4))
+    drop-shadow(0 6px 0 rgba(168, 50, 98, 0.25))
+    drop-shadow(0 26px 40px rgba(168, 50, 98, 0.35));
+  letter-spacing: 0.01em;
+}
+.muse-glass-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 26% at 32% 22%, rgba(255,255,255,0.95), transparent 70%),
+    radial-gradient(ellipse 60% 20% at 70% 85%, rgba(255,255,255,0.35), transparent 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  mix-blend-mode: overlay;
+  animation: glass-breathe 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes glass-breathe {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+.animate-float {
+  animation: float-y 7s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-y 10s ease-in-out infinite;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+::selection {
+  background: var(--color-blush-300);
+  color: var(--color-rose-800);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
