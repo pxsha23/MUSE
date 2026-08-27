@@ -27,8 +27,22 @@ const Register = () => {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-16">
-      <h1 className="font-display text-center text-3xl font-bold text-ink-900">Join MUSE</h1>
-      <p className="mt-2 text-center text-sm text-ink-900/60">Shop small, or start selling</p>
+      <div className="grid grid-cols-2 gap-2 rounded-full bg-blush-100 p-1">
+        <Link
+          to="/login"
+          className="rounded-full py-2 text-center text-sm font-semibold text-ink-900/50 transition hover:text-ink-900"
+        >
+          Log In
+        </Link>
+        <span className="rounded-full bg-white py-2 text-center text-sm font-semibold text-rose-700 shadow-sm">
+          Create Account
+        </span>
+      </div>
+
+      <h1 className="font-display mt-6 text-center text-3xl font-bold text-ink-900">Join MUSE</h1>
+      <p className="mt-2 text-center text-sm text-ink-900/60">
+        Already have a shop or account? Use Log In above instead.
+      </p>
 
       <div className="mt-6 grid grid-cols-2 gap-2 rounded-full bg-blush-100 p-1">
         {['buyer', 'seller'].map((r) => (

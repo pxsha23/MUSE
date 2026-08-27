@@ -27,8 +27,22 @@ const Login = () => {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-16">
-      <h1 className="font-display text-center text-3xl font-bold text-ink-900">Welcome back</h1>
-      <p className="mt-2 text-center text-sm text-ink-900/60">Log in to your MUSE account</p>
+      <div className="grid grid-cols-2 gap-2 rounded-full bg-blush-100 p-1">
+        <span className="rounded-full bg-white py-2 text-center text-sm font-semibold text-rose-700 shadow-sm">
+          Log In
+        </span>
+        <Link
+          to="/register"
+          className="rounded-full py-2 text-center text-sm font-semibold text-ink-900/50 transition hover:text-ink-900"
+        >
+          Create Account
+        </Link>
+      </div>
+
+      <h1 className="font-display mt-6 text-center text-3xl font-bold text-ink-900">Welcome back</h1>
+      <p className="mt-2 text-center text-sm text-ink-900/60">
+        Log in to your MUSE account — shopper or seller, same form.
+      </p>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
         <div>
@@ -61,10 +75,7 @@ const Login = () => {
       </form>
 
       <p className="mt-6 text-center text-sm text-ink-900/60">
-        New to MUSE?{' '}
-        <Link to="/register" className="font-semibold text-rose-600 hover:underline">
-          Create an account
-        </Link>
+        Already have a shop on MUSE? Log in above — don't create a second one.
       </p>
     </div>
   );
