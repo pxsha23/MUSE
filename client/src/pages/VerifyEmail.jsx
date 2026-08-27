@@ -72,22 +72,17 @@ const VerifyEmail = () => {
       </p>
 
       {devOtp && (
-        <div className="mt-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-rose-700">
-            Email not confirmed sent — use this code instead
-          </p>
-          <button
-            type="button"
-            onClick={() => {
-              setCode(devOtp);
-              toast.success('Code filled in');
-            }}
-            className="mt-1 font-display text-2xl font-bold tracking-[0.3em] text-rose-800"
-          >
-            {devOtp}
-          </button>
-          <p className="mt-1 text-[11px] text-rose-700/70">Tap the code to fill it in below</p>
-        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setCode(devOtp);
+            toast.success('Code filled in');
+          }}
+          className="mt-5 flex w-full items-center justify-between rounded-xl border border-line-200 bg-blush-50 px-4 py-2.5 text-left"
+        >
+          <span className="text-xs text-ink-900/50">Didn't get the email? Use</span>
+          <span className="font-display text-base font-semibold tracking-[0.2em] text-rose-700">{devOtp}</span>
+        </button>
       )}
 
       <form onSubmit={handleVerify} className="mt-8 space-y-6">

@@ -20,18 +20,19 @@ const Hero = () => (
     <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-blush-100/80 blur-3xl" />
 
     {FLOATERS.map(({ Icon, className, size, delay }, i) => (
-      <div
+      <motion.div
         key={i}
-        className={`animate-float pointer-events-none absolute hidden sm:block ${className}`}
-        style={{ animationDelay: `${delay}s` }}
+        className={`pointer-events-none absolute hidden sm:block ${className}`}
+        animate={{ y: [0, -18, 0, 10, 0], rotate: [0, 4, 0, -4, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay }}
       >
         <div
-          className="flex items-center justify-center rounded-full bg-rose-600 text-white shadow-lg shadow-rose-600/30"
+          className="glass-panel flex items-center justify-center rounded-full text-rose-500 shadow-md"
           style={{ width: size, height: size }}
         >
           <Icon size={size * 0.52} />
         </div>
-      </div>
+      </motion.div>
     ))}
 
     <div className="relative mx-auto flex max-w-7xl flex-col items-center px-6 pb-24 pt-20 text-center sm:pb-32 sm:pt-24">
