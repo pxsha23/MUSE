@@ -22,8 +22,8 @@ export const AuthProvider = ({ children }) => {
     hydrate();
   }, [hydrate]);
 
-  const login = async (email, password) => {
-    const { user } = await loginUser({ email, password });
+  const login = async (email, password, role) => {
+    const { user } = await loginUser({ email, password, role });
     setUser(user);
     return user;
   };

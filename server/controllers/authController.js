@@ -105,7 +105,7 @@ export const register = asyncHandler(async (req, res) => {
 
 // @route POST /api/auth/login
 export const login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
   if (!email || !password) {
     res.status(400);
     throw new Error('email and password are required');
@@ -115,6 +115,17 @@ export const login = asyncHandler(async (req, res) => {
   if (!user || !(await user.matchPassword(password))) {
     res.status(401);
     throw new Error('Invalid email or password');
+  }
+
+  if (role && role !== user.role) {
+    res.status(403);
+    const err = new Error(
+      user.role === 'seller'
+        ? 'This email is registered as a seller. Switch to "Sell on MUSE" to log in.'
+        : 'This email is registered as a buyer. Switch to "Shop on MUSE" to log in.'
+    );
+    err.code2 = 'ROLE_MISMATCH';
+    throw err;
   }
 
   generateToken(res, user);

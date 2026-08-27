@@ -17,10 +17,12 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(form.email, form.password);
+      await login(form.email, form.password, role);
       navigate(redirect);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Login failed');
+      toast.error(err.response?.data?.message || 'Login failed', {
+        duration: err.response?.data?.code === 'ROLE_MISMATCH' ? 6000 : 4000,
+      });
     } finally {
       setLoading(false);
     }
