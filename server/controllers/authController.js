@@ -29,12 +29,17 @@ const issueOtp = async (user) => {
   user.otpAttempts = 0;
   user.otpLastSentAt = new Date();
   await user.save();
-  try {
-    return await sendOtpEmail({ to: user.email, name: user.name, otp });
-  } catch (err) {
-    console.error('Failed to send OTP email, falling back to dev mode:', err.message);
-    return { sent: false, devOtp: otp };
-  }
+
+  // Don't let a slow/unreachable SMTP server stall the whole request — race it
+  // against a short timeout and fall back to showing the code on-screen.
+  const emailAttempt = sendOtpEmail({ to: user.email, name: user.name, otp }).catch((err) => {
+    console.error('Failed to send OTP email:', err.message);
+    return { sent: false };
+  });
+  const timeout = new Promise((resolve) => setTimeout(() => resolve({ sent: false }), 3000));
+
+  const result = await Promise.race([emailAttempt, timeout]);
+  return result.sent ? result : { sent: false, devOtp: otp };
 };
 
 const createUniqueStoreSlug = async (storeName) => {

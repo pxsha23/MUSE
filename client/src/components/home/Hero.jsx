@@ -5,14 +5,14 @@ import { GiLipstick } from 'react-icons/gi';
 import { RiDiamondRingLine } from 'react-icons/ri';
 
 const FLOATERS = [
-  { Icon: PiFlowerTulipThin, className: 'left-[4%] top-[14%]', size: 60, delay: 0 },
-  { Icon: RiDiamondRingLine, className: 'left-[13%] top-[62%]', size: 52, delay: 0.8 },
-  { Icon: PiDressThin, className: 'right-[6%] top-[10%]', size: 68, delay: 0.4 },
-  { Icon: GiLipstick, className: 'right-[14%] top-[58%]', size: 50, delay: 1.2 },
-  { Icon: PiHighHeelThin, className: 'left-[24%] top-[82%]', size: 48, delay: 1.6 },
-  { Icon: PiHandbagThin, className: 'right-[26%] top-[80%]', size: 50, delay: 0.6 },
-  { Icon: PiCloudThin, className: 'left-[2%] top-[42%]', size: 56, delay: 1 },
-  { Icon: PiCloudThin, className: 'right-[2%] top-[38%]', size: 64, delay: 0.3 },
+  { Icon: PiFlowerTulipThin, className: 'left-[4%] top-[14%]', size: 82, delay: 0 },
+  { Icon: RiDiamondRingLine, className: 'left-[12%] top-[62%]', size: 72, delay: 0.8 },
+  { Icon: PiDressThin, className: 'right-[5%] top-[10%]', size: 92, delay: 0.4 },
+  { Icon: GiLipstick, className: 'right-[13%] top-[58%]', size: 70, delay: 1.2 },
+  { Icon: PiHighHeelThin, className: 'left-[23%] top-[82%]', size: 66, delay: 1.6 },
+  { Icon: PiHandbagThin, className: 'right-[25%] top-[80%]', size: 70, delay: 0.6 },
+  { Icon: PiCloudThin, className: 'left-[1%] top-[42%]', size: 74, delay: 1 },
+  { Icon: PiCloudThin, className: 'right-[1%] top-[38%]', size: 86, delay: 0.3 },
 ];
 
 const Hero = () => (
@@ -26,10 +26,10 @@ const Hero = () => (
         style={{ animationDelay: `${delay}s` }}
       >
         <div
-          className="glass-panel flex items-center justify-center rounded-full text-rose-400/80 shadow-sm"
+          className="flex items-center justify-center rounded-full bg-rose-600 text-white shadow-lg shadow-rose-600/30"
           style={{ width: size, height: size }}
         >
-          <Icon size={size * 0.5} />
+          <Icon size={size * 0.52} />
         </div>
       </div>
     ))}

@@ -23,6 +23,10 @@ export const errorHandler = (err, req, res, next) => {
       .join(', ');
   }
 
+  if (statusCode >= 500) {
+    console.error(`[${req.method} ${req.originalUrl}] ${statusCode}:`, err);
+  }
+
   res.status(statusCode).json({
     message,
     code: err.code2 || undefined,

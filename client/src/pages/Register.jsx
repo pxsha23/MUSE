@@ -16,12 +16,8 @@ const Register = () => {
     setLoading(true);
     try {
       const { devOtp } = await register({ ...form, role });
-      if (devOtp) {
-        toast.success(`Dev mode (no email configured): your OTP is ${devOtp}`, { duration: 10000 });
-      } else {
-        toast.success('Check your email for a verification code');
-      }
-      navigate('/verify-email');
+      if (!devOtp) toast.success('Check your email for a verification code');
+      navigate('/verify-email', { state: { devOtp } });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
