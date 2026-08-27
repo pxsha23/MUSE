@@ -7,9 +7,13 @@ import Product from '../models/Product.js';
 import Story from '../models/Story.js';
 import Cart from '../models/Cart.js';
 import { slugify } from '../utils/slugify.js';
-import { productPlaceholder, storyPlaceholder, logoPlaceholder } from '../utils/placeholderImage.js';
+import { logoPlaceholder } from '../utils/placeholderImage.js';
 
-const img = (category) => ({ url: productPlaceholder(category), publicId: `seed/${category}` });
+const CLOUD = 'https://res.cloudinary.com/lj2fcvdz/image/upload';
+const seedImg = (key) => ({
+  url: `${CLOUD}/muse/seed-products/${key}.jpg`,
+  publicId: `muse/seed-products/${key}`,
+});
 
 const sellers = [
   {
@@ -18,9 +22,9 @@ const sellers = [
     storeName: 'Ivory Thread',
     bio: 'Hand-finished occasion dresses, made in small batches.',
     products: [
-      { title: 'Blush Wrap Midi Dress', category: 'dresses', price: 2899, tags: 'dress,pink,midi' },
-      { title: 'Champagne Slip Dress', category: 'dresses', price: 3299, tags: 'dress,slip,evening' },
-      { title: 'Rose Organza Gown', category: 'dresses', price: 5499, tags: 'dress,gown,party' },
+      { title: 'Blush Wrap Midi Dress', category: 'dresses', price: 2899, tags: 'dress,pink,midi', img: 'blush-wrap-midi-dress' },
+      { title: 'Champagne Slip Dress', category: 'dresses', price: 3299, tags: 'dress,slip,evening', img: 'champagne-slip-dress' },
+      { title: 'Rose Organza Gown', category: 'dresses', price: 5499, tags: 'dress,gown,party', img: 'rose-organza-gown' },
     ],
   },
   {
@@ -29,9 +33,9 @@ const sellers = [
     storeName: 'Little Luxe Studio',
     bio: 'Delicate gold-plated jewelry for everyday glam.',
     products: [
-      { title: 'Pearl Drop Earrings', category: 'jewelry', price: 899, tags: 'earrings,pearl,gold' },
-      { title: 'Layered Chain Necklace', category: 'jewelry', price: 1199, tags: 'necklace,gold,layered' },
-      { title: 'Charm Bracelet Set', category: 'jewelry', price: 999, tags: 'bracelet,charm,gold' },
+      { title: 'Pearl Drop Earrings', category: 'jewelry', price: 899, tags: 'earrings,pearl,gold', img: 'pearl-drop-earrings' },
+      { title: 'Layered Chain Necklace', category: 'jewelry', price: 1199, tags: 'necklace,gold,layered', img: 'layered-chain-necklace' },
+      { title: 'Charm Bracelet Set', category: 'jewelry', price: 999, tags: 'bracelet,charm,gold', img: 'charm-bracelet-set' },
     ],
   },
   {
@@ -40,8 +44,8 @@ const sellers = [
     storeName: 'Sole Society',
     bio: 'Comfortable statement heels and flats for every look.',
     products: [
-      { title: 'Strappy Block Heels', category: 'shoes', price: 2199, tags: 'shoes,heels,strappy' },
-      { title: 'Satin Ballet Flats', category: 'shoes', price: 1599, tags: 'shoes,flats,satin' },
+      { title: 'Strappy Block Heels', category: 'shoes', price: 2199, tags: 'shoes,heels,strappy', img: 'strappy-block-heels' },
+      { title: 'Satin Ballet Flats', category: 'shoes', price: 1599, tags: 'shoes,flats,satin', img: 'satin-ballet-flats' },
     ],
   },
   {
@@ -50,8 +54,8 @@ const sellers = [
     storeName: 'Muse & Co Bags',
     bio: 'Structured mini bags for every occasion.',
     products: [
-      { title: 'Quilted Mini Sling', category: 'bags', price: 1899, tags: 'bag,sling,quilted' },
-      { title: 'Pearl Clasp Clutch', category: 'bags', price: 2499, tags: 'bag,clutch,pearl' },
+      { title: 'Quilted Mini Sling', category: 'bags', price: 1899, tags: 'bag,sling,quilted', img: 'quilted-mini-sling' },
+      { title: 'Pearl Clasp Clutch', category: 'bags', price: 2499, tags: 'bag,clutch,pearl', img: 'pearl-clasp-clutch' },
     ],
   },
   {
@@ -60,8 +64,8 @@ const sellers = [
     storeName: 'Glow Ritual',
     bio: 'Clean, glowy beauty essentials.',
     products: [
-      { title: 'Rose Tint Lip Oil', category: 'beauty', price: 649, tags: 'beauty,lip,tint' },
-      { title: 'Shimmer Body Oil', category: 'beauty', price: 899, tags: 'beauty,shimmer,body' },
+      { title: 'Rose Tint Lip Oil', category: 'beauty', price: 649, tags: 'beauty,lip,tint', img: 'rose-tint-lip-oil' },
+      { title: 'Shimmer Body Oil', category: 'beauty', price: 899, tags: 'beauty,shimmer,body', img: 'shimmer-body-oil' },
     ],
   },
 ];
@@ -108,7 +112,7 @@ const run = async () => {
         category: p.category,
         price: p.price,
         compareAtPrice: Math.round(p.price * 1.25),
-        images: [img(p.category)],
+        images: [seedImg(p.img)],
         stock: 25,
         tags: p.tags.split(','),
         isPublished: true,
@@ -121,8 +125,8 @@ const run = async () => {
       storeName: store.storeName,
       storeSlug: store.slug,
       storeLogoUrl: store.logoUrl,
-      mediaUrl: storyPlaceholder(s.products[0].category, 'New In'),
-      mediaPublicId: `seed/${slugify(s.storeName)}-story`,
+      mediaUrl: seedImg(s.products[0].img).url,
+      mediaPublicId: `muse/seed-products/${s.products[0].img}`,
       mediaType: 'image',
       caption: `New in at ${store.storeName}`,
       linkedProduct: createdProducts[0]?._id,
