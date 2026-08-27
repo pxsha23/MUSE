@@ -13,12 +13,20 @@ const getOrCreateCart = async (userId) => {
 const buildCartResponse = async (cart) => {
   const populated = await cart.populate({ path: 'items.product', select: PRODUCT_FIELDS });
 
+  // Prune any items whose product was hard-deleted so checkout never trips
+  // over a stale reference the buyer has no way to see or remove.
+  const stalePresent = populated.items.some((item) => !item.product);
+  if (stalePresent) {
+    populated.items = populated.items.filter((item) => item.product);
+    await populated.save();
+  }
+
   const groups = new Map();
   let total = 0;
 
   for (const item of populated.items) {
     const p = item.product;
-    if (!p) continue; // product was hard-removed
+    if (!p) continue;
     const available = p.isActive && p.isPublished;
     const lineTotal = available ? p.price * item.quantity : 0;
     if (available) total += lineTotal;
