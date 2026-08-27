@@ -9,6 +9,7 @@ const Login = () => {
   const [params] = useSearchParams();
   const redirect = params.get('redirect') || '/';
 
+  const [role, setRole] = useState('buyer');
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
 
@@ -40,11 +41,29 @@ const Login = () => {
       </div>
 
       <h1 className="font-display mt-6 text-center text-3xl font-bold text-ink-900">Welcome back</h1>
-      <p className="mt-2 text-center text-sm text-ink-900/60">
-        Log in to your MUSE account — shopper or seller, same form.
+
+      <div className="mt-4 grid grid-cols-2 gap-2 rounded-full bg-blush-100 p-1">
+        {['buyer', 'seller'].map((r) => (
+          <button
+            key={r}
+            type="button"
+            onClick={() => setRole(r)}
+            className={`rounded-full py-2 text-sm font-semibold capitalize transition ${
+              role === r ? 'bg-white text-rose-600 shadow-sm' : 'text-ink-900/50'
+            }`}
+          >
+            {r === 'buyer' ? 'Shop on MUSE' : 'Sell on MUSE'}
+          </button>
+        ))}
+      </div>
+
+      <p className="mt-3 text-center text-sm text-ink-900/60">
+        {role === 'seller'
+          ? 'Log in to manage your shop and listings.'
+          : 'Log in to shop and track your orders.'}
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
           <label className="mb-1 block text-xs font-medium text-ink-900/60">Email</label>
           <input
